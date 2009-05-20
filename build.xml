@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ======================================================================
+Created Dec 3, 2007 5:00:32 PM
+
+Copyright (c) 2007, Don Branson.  All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+====================================================================== -->
+
+<project name="DonsProxy" default="dist">
+
+	<property name="version" value="1.3.0" />
+	<property name="bin.dir" value="bin" />
+	<property name="dist.dir" value="dist" />
+	<property name="results.dir" value="junit-reports" />
+	<property name="jar.file" value="donsproxy-${version}.jar" />
+	<property name="binary.tar" value="donsproxy-nogui-${version}.tgz" />
+	<property name="source.tar" value="donsproxy-src-${version}.tgz" />
+	<property name="application.zip" value="donsproxy-gui-${version}.zip" />
+
+	<path id="class.path">
+		<pathelement location="config" />
+		<fileset dir="lib" includes="*.jar" />
+		<pathelement location="${bin.dir}/unit" />
+		<pathelement location="${bin.dir}/main" />
+	</path>
+
+	<target name="scrub">
+		<delete dir="${dist.dir}" />
+		<delete dir="${bin.dir}" />
+		<delete dir="tmp" />
+		<delete dir="${results.dir}" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${bin.dir}/main" />
+		<mkdir dir="${bin.dir}/unit" />
+		<mkdir dir="${bin.dir}/out" />
+		<mkdir dir="${results.dir}" />
+		<mkdir dir="tmp" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="src/main" destdir="${bin.dir}/main" optimize="yes" deprecation="yes" classpathref="class.path" />
+		<javac srcdir="src/unit" destdir="${bin.dir}/unit" optimize="yes" deprecation="yes" classpathref="class.path" />
+	</target>
+
+	<target name="test" depends="compile">
+		<junit fork="yes" printsummary="yes" haltonfailure="yes" dir="${bin.dir}/unit" showoutput="true">
+			<classpath refid="class.path" />
+			<formatter type="xml" />
+			<batchtest toDir="${results.dir}">
+				<fileset dir="${bin.dir}/unit" includes="**/*Test.class" />
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="jar" depends="test">
+
+		<copy todir="tmp/properties">
+			<fileset dir="src/main">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+
+		<replace dir="tmp/properties" value="${version}">
+			<include name="**/*.properties" />
+			<replacetoken>\#\#version.number\#\#</replacetoken>
+		</replace>
+
+		<manifestclasspath property="jar.classpath" jarfile="${jar.file}">
+			<classpath>
+				<pathelement location="config" />
+				<fileset dir="lib" includes="*.jar" />
+			</classpath>
+		</manifestclasspath>
+
+		<jar destfile="${dist.dir}/${jar.file}">
+
+			<manifest>
+				<attribute name="Main-Class" value="com.moneybender.proxy.application.DonsProxy" />
+				<attribute name="Class-Path" value="${jar.classpath}" />
+			</manifest>
+			<fileset dir="${bin.dir}/main" />
+			<fileset dir="tmp/properties" includes="**/*.properties" />
+		</jar>
+	</target>
+
+	<target name="binary-tar" depends="jar">
+		<tar destfile="${dist.dir}/${binary.tar}" compression="gzip">
+			<tarfileset prefix="donsproxy/" file="LICENSE" />
+			<tarfileset prefix="donsproxy/lib" file="lib/log4j*jar" />
+			<tarfileset prefix="donsproxy/lib" file="lib/xercesImpl.jar" />
+			<tarfileset prefix="donsproxy/lib" file="${dist.dir}/${jar.file}" />
+			<tarfileset prefix="donsproxy/config" dir="config" mode="400" />
+			<tarfileset prefix="donsproxy/scripts" dir="scripts" mode="700" />
+		</tar>
+	</target>
+
+	<target name="source-tar">
+		<tar destfile="${dist.dir}/${source.tar}" compression="gzip">
+			<tarfileset prefix="donsproxy/" file="LICENSE" />
+			<tarfileset prefix="donsproxy/src" dir="src" />
+			<tarfileset prefix="donsproxy/lib" file="lib/junit*jar" />
+			<tarfileset prefix="donsproxy/" file="build.xml" />
+			<tarfileset prefix="donsproxy/" file=".classpath" />
+			<tarfileset prefix="donsproxy/" file=".project" />
+		</tar>
+	</target>
+
+	<target name="application" depends="jar">
+		<zip destfile="${dist.dir}/${application.zip}">
+			<zipfileset prefix="donsproxy-${version}/config" dir="config" />
+			<zipfileset prefix="donsproxy-${version}/lib" dir="lib" excludes="**/junit*" />
+			<zipfileset prefix="donsproxy-${version}" file="${dist.dir}/${jar.file}" />
+		</zip>
+	</target>
+
+	<target name="dist" depends="scrub, binary-tar, source-tar, application">
+		<delete file="${dist.dir}/${jar.file}" />
+	</target>
+
+	<target name="cruise" depends="dist" />
+
+</project>

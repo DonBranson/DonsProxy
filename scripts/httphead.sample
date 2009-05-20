@@ -1,0 +1,71 @@
+2007-12-03 07:19:15,002 INFO  [HttpHeadSubscriber] - HttpHeadSubscriber starting.
+Sender is CLIENT at 127.0.0.1:53703
+Packet ID:0-1
+GET http://google.com HTTP/1.1
+User-Agent: curl/7.15.5 (i686-redhat-linux-gnu) libcurl/7.15.5 OpenSSL/0.9.8b zlib/1.2.3 libidn/0.6.5
+Host: google.com
+Pragma: no-cache
+Accept: */*
+Proxy-Connection: Keep-Alive
+
+Sender is SERVER at 127.0.0.1:8080
+Packet ID:0-1
+HTTP/1.1 301 Moved Permanently
+Date: Mon, 03 Dec 2007 13:19:18 GMT
+Server: gws
+Location: http://www.google.com/
+Content-Type: text/html
+Content-Length: 219
+Set-Cookie: PREF=ID=133c4ffccd7dd14f:TM=1196687958:LM=1196687958:S=bGi8gpXJiu9s0Bxz; expires=Wed, 02-Dec-2009 13:19:18 GMT; path=/; domain=.google.com
+
+Sender is CLIENT at 127.0.0.1:53703
+Packet ID:0-2
+GET http://www.google.com/ HTTP/1.1
+User-Agent: curl/7.15.5 (i686-redhat-linux-gnu) libcurl/7.15.5 OpenSSL/0.9.8b zlib/1.2.3 libidn/0.6.5
+Host: www.google.com
+Pragma: no-cache
+Accept: */*
+Proxy-Connection: Keep-Alive
+
+Sender is SERVER at 127.0.0.1:8080
+Packet ID:0-2
+HTTP/1.1 200 OK
+Date: Mon, 03 Dec 2007 13:19:18 GMT
+Server: gws
+Cache-Control: private
+Content-Type: text/html; charset=ISO-8859-1
+Set-Cookie: PREF=ID=44da2f60efd8b956:TM=1196687958:LM=1196687958:S=cpQRylVqWRJ1yBAG; expires=Wed, 02-Dec-2009 13:19:18 GMT; path=/; domain=.google.com
+Transfer-Encoding: chunked
+
+Sender is CLIENT at 127.0.0.1:53707
+Packet ID:1-1
+CONNECT wwws.ameritrade.com:443 HTTP/1.0
+Host: wwws.ameritrade.com:443
+User-Agent: curl/7.15.5 (i686-redhat-linux-gnu) libcurl/7.15.5 OpenSSL/0.9.8b zlib/1.2.3 libidn/0.6.5
+Proxy-Connection: Keep-Alive
+
+Sender is SERVER at 127.0.0.1:8080
+Packet ID:1-1
+HTTP/1.0 200 Connection Established
+Proxy-agent: Apache/2.2.6 (Unix) mod_ssl/2.2.6  DAV/2
+
+Sender is SECURE_CLIENT at 127.0.0.1:53707
+Packet ID:1-2
+GET /cgi-bin/apps/LogIn HTTP/1.1
+User-Agent: curl/7.15.5 (i686-redhat-linux-gnu) libcurl/7.15.5 OpenSSL/0.9.8b zlib/1.2.3 libidn/0.6.5
+Host: wwws.ameritrade.com
+Accept: */*
+
+Sender is SECURE_SERVER at 127.0.0.1:8080
+Packet ID:1-2
+HTTP/1.1 200 OK
+Date: Mon, 03 Dec 2007 13:19:23 GMT
+Server: Apache
+Set-Cookie: AMTDTRADING=HJCbFlyTjw52Q1PdgLMn1wFFvW4wH1XTdgt1wMsngh73svQff3pT!872003256; path=/; secure
+TDAHandler: PHLogin
+TDATemplate: login/login.html
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=ISO-8859-1
+Set-Cookie: NSC_QSPE-DT-BNFSUSBE=4497535629e0;path=/
+
+2007-12-03 07:19:24,942 INFO  [HttpHeadSubscriber] - Proxy is stopping, so we'll shut down, too.

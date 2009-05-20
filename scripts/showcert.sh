@@ -1,0 +1,1 @@
+keytool -list -v -storepass password -keystore ../config/keystore
