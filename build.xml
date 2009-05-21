@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ====================================================================== -->
 
-<project name="DonsProxy" default="dist">
+<project name="DonsProxy" default="local-runnable">
 
 	<property name="version" value="1.3.0" />
 	<property name="bin.dir" value="bin" />
@@ -134,5 +134,10 @@ limitations under the License.
 	</target>
 
 	<target name="cruise" depends="dist" />
+
+	<target name="local-runnable" depends="dist">
+		<unzip src="${dist.dir}/${application.zip}" dest="."/>
+	</target>
+
 
 </project>

@@ -1,0 +1,11 @@
+To build and run DonsProxy, type:
+
+  ant
+
+After the build completes, the expanded executable will be in donsproxy-<version>.  cd into that directory, and run
+
+  java -jar donsproxy-<version>.jar
+
+which starts the GUI.
+
+Refer to http://donsproxy.sourceforge.net/ for documentation.

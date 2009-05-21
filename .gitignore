@@ -2,3 +2,4 @@ bin
 dist
 junit-reports
 tmp
+donsproxy-*
