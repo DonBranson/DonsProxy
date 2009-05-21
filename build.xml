@@ -41,6 +41,7 @@ limitations under the License.
 		<delete dir="${bin.dir}" />
 		<delete dir="tmp" />
 		<delete dir="${results.dir}" />
+		<delete dir="donsproxy-${version}" />
 	</target>
 
 	<target name="init">
