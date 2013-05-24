@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--
+    This is a repackaging of DonsProxy-1.2.1
+    http://donsproxy.moneybender.com
+    Original copyright and license remain unchanged.
+  -->
+
+  <groupId>com.moneybender</groupId>
+  <artifactId>donsproxy</artifactId>
+  <name>DonsProxy</name>
+  <version>dev-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <fork>true</fork>
+          <target>1.6</target>
+          <source>1.6</source>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <debug>true</debug>
+          <debuglevel>lines,vars,source</debuglevel>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.moneybender.proxy.application.DonsProxy</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jdesktop</groupId>
+      <artifactId>appframework</artifactId>
+      <version>1.0.3</version> <!-- Was 1.0 in DonsProxy-1.2.1 -->
+    </dependency>
+
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version> <!-- Was 1.2.14 in DonsProxy-1.2.1 -->
+    </dependency>
+
+  </dependencies>
+
+</project>
+
