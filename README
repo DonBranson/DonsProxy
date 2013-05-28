@@ -1,11 +1,11 @@
 To build and run DonsProxy, type:
 
-  ant
+  mvn clean install
 
-After the build completes, the expanded executable will be in donsproxy-<version>.  cd into that directory, and run
+After the build completes, run:
 
-  java -jar donsproxy-<version>.jar
+   java -jar target/donsproxy-<VERSION>-jar-with-dependencies.jar
 
 which starts the GUI.
 
-Refer to http://donsproxy.sourceforge.net/ for documentation.
+Refer to http://donsproxy.sourceforge.net for documentation.
