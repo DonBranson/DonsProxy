@@ -1,6 +1,6 @@
-bin
-dist
-junit-reports
+target
 tmp
 donsproxy-*
 eclipse_bin
+.DS_Store
+_*
